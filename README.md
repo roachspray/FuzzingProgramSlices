@@ -55,7 +55,7 @@ function.
 
 ## Naive work
 
-Some (naive work)[https://github.com/roachspray/acsac17wip]  has been implemented
+Some [naive work](https://github.com/roachspray/acsac17wip)  has been implemented
 and at this point only weakly tested. There are some other things I would like to do
 with that code, such as instead of branch removal, branch to exit()'s, and cascade 
 fuzzing (described in the ACSAC slides).
