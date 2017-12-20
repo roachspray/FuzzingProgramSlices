@@ -47,16 +47,19 @@ ExitBlocksPass::runOnModule(Module &M)
 		errs() << "No trace entries found in '" << TraceLogFile << "'\n";
 		return false;
 	}
+	errs() << "Trace file entries: " << traceEntries.size() << "\n";
 
 		
 	Constant *exitFnC = mod->getOrInsertFunction("exit",
 	  Type::getVoidTy(mod->getContext()),
-	  Type::getInt32Ty(mod->getContext()));
+	  Type::getInt32Ty(mod->getContext()),
+	  NULL);
 	if (exitFnC == NULL) {
 		errs() << "Unable to insert 'void exit(int)' decl\n";
 		return false;
 	}
 	Function *exitFn = cast<Function>(exitFnC);
+	errs() << "\n\n\n";
 	unsigned dep = PruneDepth;
 	unsigned total_removed = 0;
 	do {	
@@ -67,20 +70,21 @@ ExitBlocksPass::runOnModule(Module &M)
 		}
 		keepBlocks.clear();
 		removeBlocks.clear();
-	
+		parseFocusFuncForBlocks();	
 		for (auto rbi = removeBlocks.begin(); rbi != removeBlocks.end();
 		  ++rbi) {
 			BBlockRef *bbRef = const_cast<BBlockRef *>(&*rbi);
 			BasicBlock *bb = bbRef->getBB();
 
 			Instruction *firstInst = bb->getFirstNonPHI();
-			std::vector<Value *> fIdxs;
-			fIdxs.push_back(
-				Constant::getIntegerValue(Type::getInt32Ty(mod->getContext()),
-				  APInt(32, 0, false))
-			);
-			CallInst::Create(exitFn, fIdxs, "", firstInst);
+			Value *a[1];
+			a[0] = Constant::getIntegerValue(Type::getInt32Ty(mod->getContext()),
+			  APInt(32, 0, false));
+			ArrayRef<Value *> fIdxs(a, 1);
+			Value *vci = CallInst::Create(exitFn, fIdxs, "", firstInst);
+//			vci->dump();
 		}
+//		currentFocusFunction->dump();
 	} while (dep > 0);
 
 	return true;
