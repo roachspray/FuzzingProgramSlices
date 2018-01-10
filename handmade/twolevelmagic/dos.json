@@ -1,0 +1,9 @@
+{
+  "out_dir" : "/home/areiter/FuzzingProgramSlices/handmade/twolevelmagic/work_dos",
+  "ps_root" : "/home/areiter/acsac17wip/naive",
+  "bc_file" : "tlm.bc",
+  "compile_lib" : [],
+  "fnlist_file" : "probecallfunctions.txt",
+  "depths" : [   2 ],
+  "command" : "@@"
+}
