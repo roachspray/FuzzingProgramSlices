@@ -61,3 +61,13 @@ with that code, such as instead of branch removal, branch to exit()'s, and casca
 fuzzing (described in the ACSAC slides).
 
 
+## Exit blocks
+
+An improvement for the mapping phase, but perhaps not from other
+perspectives, is to leave branches to blocks you don't want to reach, but
+insert exit(0) calls there. This reduces the fuzz space, as desired, and
+lets any inputs map back to the original program. The issue is you still
+have the branches. The code in exitblocks/ shows how this works, using the
+same weak trace input as naive. 
+
+
