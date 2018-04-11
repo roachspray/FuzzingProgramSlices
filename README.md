@@ -70,4 +70,22 @@ lets any inputs map back to the original program. The issue is you still
 have the branches. The code in exitblocks/ shows how this works, using the
 same weak trace input as naive. 
 
+## Generating Test Cases
 
+One thing that would be helpful would be to get test cases that target the slice of
+interest. A method to do this is using Klee along with the passes:
+
+- FindInstructionsByLocation and
+- InjectPutsByMDTag
+
+The first will take file that lists source files and line numbers. This is intended
+to be from a diff (or a changeset) that indicates areas of code changes, but it could
+be generated from a number of means. Then, just take the target application and re-instrument
+wth first injecting metadata by locations in a bitcode file where line number information
+is found (from file). Then run the puts injection pass that looks for these tags and
+adds a dumb puts() call to output to stdout. And then just run the generated inputs
+from Klee with your target app compiled with the puts() instrumentation and determine
+which reaches the most of your intended slice (i.e. use the puts() output to count).
+
+I admit, I must include the above into this repo. Further, I must include the ability to
+run through the app with changeset data as input for slice generation. (**XXX** adding as a ticket)
