@@ -87,5 +87,8 @@ adds a dumb puts() call to output to stdout. And then just run the generated inp
 from Klee with your target app compiled with the puts() instrumentation and determine
 which reaches the most of your intended slice (i.e. use the puts() output to count).
 
-I admit, I must include the above into this repo. Further, I must include the ability to
-run through the app with changeset data as input for slice generation. (**XXX** adding as a ticket)
+So, the key here is that we slice based on code paths found in trace of a given desirable
+input. So we can use the klee output as input to generate the trace and then slice.
+
+Alternatively, there likely should be some work done to just take file+line numbers, like
+we do in the function + block number.
