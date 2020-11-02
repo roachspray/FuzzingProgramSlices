@@ -9,7 +9,9 @@ related work, but this here is just my experiments. Feel free to include
 or contribute work to this project; my intention is to just explore this
 space some, so the more explorers the merrier :D.
 
-**Ignore** the Pruneskin.cpp file... it is no longer used
+**Ignore** the Pruneskin.cpp file... it is no longer used..this file is from
+the acsac2017 work that I mention one should look at in the `naive/README.md`
+file
 
 ## Idea in abstract
 
