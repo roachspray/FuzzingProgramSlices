@@ -9,6 +9,13 @@ related work, but this here is just my experiments. Feel free to include
 or contribute work to this project; my intention is to just explore this
 space some, so the more explorers the merrier :D.
 
+**Note** that here and in FuzzingProgramSlices, the Pruneskin.cpp code is a bit
+wonked ... it is missing an if/then related to the trace code injection and
+setting of the output trace file. I believe that was me trying to remove
+pass-dependencies where they were not required... that is fixable (easily), I
+just did not fix it yet (and only just now noticed it in this version
+unfortunately)
+
 ## Idea in abstract
 
 A program P takes some file as an input. The file is parsed for some reason
